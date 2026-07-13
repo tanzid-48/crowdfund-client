@@ -3,9 +3,9 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
-import { registerSchema, type RegisterFormValues } from "@/schemas/auth.schema";
+import { loginSchema, type LoginFormValues } from "@/schemas/auth.schema";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -34,53 +34,46 @@ function GoogleIcon() {
   );
 }
 
-export default function RegisterForm() {
+export default function LoginForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectTo = searchParams.get("redirect") || "/dashboard";
   const [loading, setLoading] = useState(false);
 
   const {
     register,
     handleSubmit,
-    setValue,
-    watch,
     formState: { errors },
-  } = useForm<RegisterFormValues>({
-    resolver: zodResolver(registerSchema),
-    defaultValues: { role: "supporter" },
+  } = useForm<LoginFormValues>({
+    resolver: zodResolver(loginSchema),
   });
 
-  const selectedRole = watch("role");
-
-  const onSubmit = async (values: RegisterFormValues) => {
+  const onSubmit = async (values: LoginFormValues) => {
     setLoading(true);
-    const { error } = await authClient.signUp.email({
+    const { error } = await authClient.signIn.email({
       email: values.email,
       password: values.password,
-      name: values.name,
-      image: values.photoURL,
-      // @ts-expect-error -- additionalField, not in base type
-      role: values.role,
     });
 
     setLoading(false);
 
     if (error) {
-      toast.error(error.message || "Registration failed");
+      toast.error(error.message || "Invalid email or password");
       return;
     }
 
-    toast.success("Account created!");
-    router.push("/login");
+    toast.success("Welcome back!");
+    router.push(redirectTo);
   };
 
   return (
     <div className="w-full max-w-md space-y-6 rounded-lg border border-border bg-card p-8 text-card-foreground">
       <div className="space-y-1 text-center">
         <h1 className="font-heading text-2xl font-semibold text-foreground">
-          Create your account
+          Welcome back
         </h1>
         <p className="text-sm text-muted-foreground">
-           Join Crowdfund as a supporter or creator
+          Log in to your Crowdfund account
         </p>
       </div>
 
@@ -90,24 +83,11 @@ export default function RegisterForm() {
         className="space-y-4"
       >
         <div className="space-y-2">
-          <Label htmlFor="name">Full name</Label>
-          <Input
-            id="name"
-            placeholder="Enter Your Name"
-            {...register("name")}
-          />
-          {errors.name && (
-            <p className="text-xs text-destructive">{errors.name.message}</p>
-          )}
-        </div>
-
-        <div className="space-y-2">
           <Label htmlFor="email">Email</Label>
           <Input
             id="email"
             type="email"
             placeholder="you@example.com"
-            autoComplete="off"
             {...register("email")}
           />
           {errors.email && (
@@ -116,23 +96,13 @@ export default function RegisterForm() {
         </div>
 
         <div className="space-y-2">
-          <Label htmlFor="photoURL">Profile photo URL</Label>
-          <Input
-            id="photoURL"
-            placeholder="https://..."
-            {...register("photoURL")}
-          />
-          {errors.photoURL && (
-            <p className="text-xs text-destructive">
-              {errors.photoURL.message}
-            </p>
-          )}
-        </div>
-
-        <div className="space-y-2">
           <Label htmlFor="password">Password</Label>
-          <Input id="password" type="password"
-           placeholder="Enter Your password" {...register("password")} />
+          <Input
+            id="password"
+            type="password"
+            placeholder="enter your password"
+            {...register("password")}
+          />
           {errors.password && (
             <p className="text-xs text-destructive">
               {errors.password.message}
@@ -140,36 +110,8 @@ export default function RegisterForm() {
           )}
         </div>
 
-        <div className="space-y-2">
-          <Label>I want to join as</Label>
-          <div className="grid grid-cols-2 gap-2">
-            <button
-              type="button"
-              onClick={() => setValue("role", "supporter")}
-              className={`rounded-md border px-3 py-2 text-sm transition-colors ${
-                selectedRole === "supporter"
-                  ? "border-primary bg-primary/10 text-primary"
-                  : "border-border text-muted-foreground hover:bg-accent"
-              }`}
-            >
-              Supporter
-            </button>
-            <button
-              type="button"
-              onClick={() => setValue("role", "creator")}
-              className={`rounded-md border px-3 py-2 text-sm transition-colors ${
-                selectedRole === "creator"
-                  ? "border-primary bg-primary/10 text-primary"
-                  : "border-border text-muted-foreground hover:bg-accent"
-              }`}
-            >
-              Creator
-            </button>
-          </div>
-        </div>
-
         <Button type="submit" className="w-full" disabled={loading}>
-          {loading ? "Creating account..." : "Create account"}
+          {loading ? "Logging in..." : "Log in"}
         </Button>
       </form>
 
@@ -188,9 +130,9 @@ export default function RegisterForm() {
       </button>
 
       <p className="text-center text-sm text-muted-foreground">
-        Already have an account?{" "}
-        <a href="/login" className="text-primary hover:underline">
-          Log in
+        Don&apos;t have an account?{" "}
+        <a href="/register" className="text-primary hover:underline">
+          Sign up
         </a>
       </p>
     </div>
