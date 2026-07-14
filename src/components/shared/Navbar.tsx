@@ -17,6 +17,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import ThemeToggle from "./ThemeToggle";
 
 export default function Navbar() {
   const { user, isAuthenticated, loading } = useAuth();
@@ -80,7 +81,6 @@ export default function Navbar() {
               <button className="relative text-muted-foreground hover:text-foreground">
                 <Bell size={20} />
               </button>
-
               <DropdownMenu>
                 <DropdownMenuTrigger className="outline-none">
                   <Avatar className="h-9 w-9 cursor-pointer border border-border">
@@ -134,7 +134,7 @@ export default function Navbar() {
               </DropdownMenu>
             </>
           )}
-
+          <ThemeToggle />
           <a
             href="https://github.com/tanzid-48/crowdfund-client"
             target="_blank"
@@ -215,6 +215,10 @@ export default function Navbar() {
               </button>
             </>
           )}
+          <div className="flex items-center justify-between border-t border-border pt-3">
+            <span className="text-sm text-foreground">Theme</span>
+            <ThemeToggle />
+          </div>
         </nav>
       )}
     </header>
