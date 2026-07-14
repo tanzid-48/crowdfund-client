@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Inter, Sora, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
+import Navbar from "@/components/shared/Navbar";
+import { Toaster } from "sonner";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,7 +34,10 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        {children}
+        <Navbar />
+        <main className="flex-1">{children}</main>
+        
+        <Toaster richColors position="top-center" />
       </body>
     </html>
   );

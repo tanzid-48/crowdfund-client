@@ -1,7 +1,10 @@
 import { createAuthClient } from "better-auth/react";
+import { inferAdditionalFields } from "better-auth/client/plugins";
+import type { auth } from "./auth";
 
 export const authClient = createAuthClient({
   baseURL: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
+  plugins: [inferAdditionalFields<typeof auth>()],
   fetchOptions: {
     onSuccess: (ctx) => {
       const jwtToken = ctx.response.headers.get("set-auth-jwt");

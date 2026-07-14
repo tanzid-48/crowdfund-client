@@ -11,7 +11,7 @@ export const useAuth = () => {
   const clearUser = useUserStore((state) => state.clearUser);
 
   useEffect(() => {
-    if (isPending) return; 
+    if (isPending) return;
 
     if (session?.user) {
       setUser({
@@ -21,7 +21,7 @@ export const useAuth = () => {
         photoURL: session.user.image ?? "",
         // @ts-expect-error -- additionalFields
         role: session.user.role,
-        // @ts-expect-error -- additionalFields
+
         credits: session.user.credits,
       });
     } else {
