@@ -12,8 +12,8 @@ export default async function TopFundedCampaigns() {
   const campaigns = await getTopFundedCampaigns();
 
   return (
-    <section className="mx-auto max-w-7xl px-4 py-16 sm:py-20">
-      <div className="mb-10 flex items-center justify-between">
+    <section className="mx-auto w-11/12 px-4 py-16 sm:py-20">
+      <div className="mb-12 flex items-center justify-between">
         <div>
           <h2 className="font-heading text-2xl font-bold text-foreground sm:text-3xl">
             Top Funded Campaigns
@@ -61,7 +61,7 @@ export default async function TopFundedCampaigns() {
                 href={`/campaign/${campaign._id}`}
                 className="group overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-lg"
               >
-                <div className="relative h-44 w-full overflow-hidden">
+                <div className="relative h-56 w-full overflow-hidden">
                   <Image
                     src={campaign.campaign_image_url}
                     alt={campaign.campaign_title}

@@ -9,8 +9,8 @@ export default function Home() {
   return (
     <>
       <HeroSlider />
-      <TopFundedCampaigns />
       <HowItWorks />
+      <TopFundedCampaigns />
       <ExploreByCategory />
       <ImpactStats />
       <Testimonials />

@@ -17,7 +17,7 @@ export default async function ExploreCampaignsPage({
   const campaigns = await getAllApprovedCampaigns(category);
 
   return (
-    <div className="mx-auto max-w-7xl px-4 py-12">
+    <div className="mx-auto w-11/12 px-4 py-12">
       <div className="mb-10">
         <h1 className="font-heading text-3xl font-bold text-foreground">
           Explore Campaigns
@@ -56,7 +56,7 @@ export default async function ExploreCampaignsPage({
                 href={`/campaign/${campaign._id}`}
                 className="group overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-lg"
               >
-                <div className="relative h-44 w-full overflow-hidden">
+                <div className="relative h-56 w-full overflow-hidden">
                   <Image
                     src={campaign.campaign_image_url}
                     alt={campaign.campaign_title}
@@ -75,7 +75,6 @@ export default async function ExploreCampaignsPage({
                   <p className="mt-1 text-xs text-muted-foreground">
                     by {campaign.creator_name}
                   </p>
-
                   <div className="mt-4">
                     <div className="h-2 w-full overflow-hidden rounded-full bg-secondary">
                       <div
@@ -90,6 +89,14 @@ export default async function ExploreCampaignsPage({
                       <span className="font-mono text-xs text-muted-foreground">
                         ${campaign.amount_raised.toLocaleString()} raised
                       </span>
+                    </div>
+
+                    <div
+                      className="mt-3 flex items-center justify-end
+                     gap-1 text-xs font-medium text-primary opacity-0 transition-opacity opacity-100"
+                    >
+                      View Details
+                      <span aria-hidden>→</span>
                     </div>
                   </div>
                 </div>
