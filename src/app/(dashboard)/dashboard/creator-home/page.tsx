@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { getCreatorStats, type CreatorStats } from "@/lib/api/campaigns";
 import StatsCard from "@/components/dashboard/StatsCard";
+import CampaignFundingChart from "@/components/dashboard/creator/CampaignFundingChart";
 import Loading from "@/components/shared/Loading";
 import { FolderKanban, Rocket, TrendingUp } from "lucide-react";
 
@@ -27,7 +28,7 @@ export default function CreatorHomePage() {
         Welcome back, {user?.name?.split(" ")[0]}
       </h1>
       <p className="mt-1 text-sm text-muted-foreground">
-        Here are an overview of your campaigns
+        Here's an overview of your campaigns
       </p>
 
       <div className="mt-6 grid grid-cols-1 gap-4 sm:grid-cols-3">
@@ -48,6 +49,10 @@ export default function CreatorHomePage() {
           value={`$${(stats?.totalRaised ?? 0).toLocaleString()}`}
           accent="success"
         />
+      </div>
+
+      <div className="mt-6">
+        <CampaignFundingChart data={stats?.campaignBreakdown ?? []} />
       </div>
     </div>
   );

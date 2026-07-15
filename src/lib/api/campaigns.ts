@@ -5,6 +5,7 @@ export interface CreatorStats {
   totalCampaigns: number;
   activeCampaigns: number;
   totalRaised: number;
+  campaignBreakdown: { name: string; raised: number; goal: number; percent: number }[];
 }
 
 export async function getTopFundedCampaigns(): Promise<Campaign[]> {
