@@ -1,3 +1,4 @@
+import ExploreByCategory from "@/components/home/ExploreByCategory";
 import HeroSlider from "@/components/home/HeroSlider";
 import HowItWorks from "@/components/home/HowItWorks";
 import Testimonials from "@/components/home/Testimonials";
@@ -10,6 +11,7 @@ export default function Home() {
        <HeroSlider />
        <TopFundedCampaigns />
         <HowItWorks />
+         <ExploreByCategory />
       <Testimonials />
     </>
   );
