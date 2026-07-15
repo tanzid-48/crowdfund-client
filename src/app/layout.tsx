@@ -28,18 +28,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body
-        className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable} antialiased flex min-h-screen flex-col`}
-      >
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable}`}
+    >
+      <body className="antialiased flex min-h-screen flex-col">
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
           <main className="flex-1">{children}</main>
-         <Footer/>
+          <Footer />
           <Toaster richColors position="top-center" />
         </ThemeProvider>
       </body>
