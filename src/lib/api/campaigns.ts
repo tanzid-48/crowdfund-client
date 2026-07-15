@@ -1,6 +1,12 @@
 import type { Campaign } from "@/types";
 import axiosInstance from "@/lib/api/axiosInstance";
 
+export interface CreatorStats {
+  totalCampaigns: number;
+  activeCampaigns: number;
+  totalRaised: number;
+}
+
 export async function getTopFundedCampaigns(): Promise<Campaign[]> {
   try {
     const res = await fetch(
@@ -48,5 +54,9 @@ export async function getCampaignById(id: string): Promise<Campaign | null> {
 
 export async function getMyCampaigns(email: string): Promise<Campaign[]> {
   const res = await axiosInstance.get(`/campaigns/my-campaigns?email=${email}`);
+  return res.data;
+}
+export async function getCreatorStats(email: string): Promise<CreatorStats> {
+  const res = await axiosInstance.get(`/campaigns/stats?email=${email}`);
   return res.data;
 }
