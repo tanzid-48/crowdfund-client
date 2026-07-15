@@ -1,8 +1,8 @@
 import { z } from "zod";
 
 export const contributionSchema = z.object({
-  contribution_amount: z.coerce
-    .number()
+  contribution_amount: z
+    .number({ message: "Enter a valid amount" })
     .positive("Amount must be greater than 0"),
   message: z
     .string()

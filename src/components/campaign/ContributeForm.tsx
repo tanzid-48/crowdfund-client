@@ -92,7 +92,7 @@ export default function ContributeForm({ campaign }: { campaign: Campaign }) {
           type="number"
           step="1"
           placeholder={`e.g. ${campaign.minimum_contribution}`}
-          {...register("contribution_amount")}
+          {...register("contribution_amount", { valueAsNumber: true })}
         />
         {errors.contribution_amount && (
           <p className="text-xs text-destructive">
