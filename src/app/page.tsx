@@ -5,16 +5,14 @@ import ImpactStats from "@/components/home/ImpactStats";
 import Testimonials from "@/components/home/Testimonials";
 import TopFundedCampaigns from "@/components/home/TopFundedCampaigns";
 
-
-
 export default function Home() {
   return (
     <>
-       <HeroSlider />
-       <TopFundedCampaigns />
-        <HowItWorks />
-         <ExploreByCategory />
-          <ImpactStats />
+      <HeroSlider />
+      <TopFundedCampaigns />
+      <HowItWorks />
+      <ExploreByCategory />
+      <ImpactStats />
       <Testimonials />
     </>
   );
