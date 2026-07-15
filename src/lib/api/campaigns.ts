@@ -1,4 +1,5 @@
 import type { Campaign } from "@/types";
+import axiosInstance from "@/lib/api/axiosInstance";
 
 export async function getTopFundedCampaigns(): Promise<Campaign[]> {
   try {
@@ -43,4 +44,9 @@ export async function getCampaignById(id: string): Promise<Campaign | null> {
   } catch {
     return null;
   }
+}
+
+export async function getMyCampaigns(email: string): Promise<Campaign[]> {
+  const res = await axiosInstance.get(`/campaigns/my-campaigns?email=${email}`);
+  return res.data;
 }

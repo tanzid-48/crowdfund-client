@@ -18,3 +18,13 @@ export async function createContribution(
   const res = await axiosInstance.post("/contributions", payload);
   return res.data;
 }
+
+export async function approveContribution(id: string) {
+  const res = await axiosInstance.patch(`/contributions/${id}/approve`);
+  return res.data;
+}
+
+export async function rejectContribution(id: string) {
+  const res = await axiosInstance.patch(`/contributions/${id}/reject`);
+  return res.data;
+}
