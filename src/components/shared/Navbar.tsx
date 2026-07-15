@@ -85,7 +85,7 @@ export default function Navbar() {
                 <DropdownMenuTrigger className="outline-none">
                   <Avatar className="h-9 w-9 cursor-pointer border border-border">
                     <AvatarImage
-                      src={user?.image ?? undefined}
+                      src={user?.photoURL || undefined}
                       alt={user?.name}
                     />
                     <AvatarFallback>

@@ -1,12 +1,13 @@
 "use client";
 
 import { useEffect } from "react";
-
 import { useUserStore } from "@/store/useUserStore";
 import { authClient } from "@/lib/auth-client";
+import type { UserRole } from "@/types";
 
 export const useAuth = () => {
   const { data: session, isPending } = authClient.useSession();
+  const storeUser = useUserStore((state) => state.user);
   const setUser = useUserStore((state) => state.setUser);
   const clearUser = useUserStore((state) => state.clearUser);
 
@@ -19,9 +20,7 @@ export const useAuth = () => {
         name: session.user.name,
         email: session.user.email,
         photoURL: session.user.image ?? "",
-        // @ts-expect-error -- additionalFields
-        role: session.user.role,
-
+        role: session.user.role as UserRole,
         credits: session.user.credits,
       });
     } else {
@@ -30,8 +29,8 @@ export const useAuth = () => {
   }, [session, isPending, setUser, clearUser]);
 
   return {
-    user: session?.user ?? null,
-    loading: isPending, // এইটাই মূল loading gate
+    user: storeUser,
+    loading: isPending,
     isAuthenticated: !!session?.user,
   };
 };
