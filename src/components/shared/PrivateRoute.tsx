@@ -10,7 +10,10 @@ interface PrivateRouteProps {
   allowedRoles?: UserRole[];
 }
 
-export default function PrivateRoute({ children, allowedRoles }: PrivateRouteProps) {
+export default function PrivateRoute({
+  children,
+  allowedRoles,
+}: PrivateRouteProps) {
   const { user, loading, isAuthenticated } = useAuth();
   const router = useRouter();
 
@@ -22,7 +25,7 @@ export default function PrivateRoute({ children, allowedRoles }: PrivateRoutePro
       return;
     }
 
-    if (allowedRoles && user?.role && !allowedRoles.includes(user.role as UserRole)) {
+    if (allowedRoles && user?.role && !allowedRoles.includes(user.role)) {
       router.replace("/unauthorized");
     }
   }, [loading, isAuthenticated, user, allowedRoles, router]);
@@ -37,7 +40,7 @@ export default function PrivateRoute({ children, allowedRoles }: PrivateRoutePro
 
   if (!isAuthenticated) return null;
 
-  if (allowedRoles && user?.role && !allowedRoles.includes(user.role as UserRole)) {
+  if (allowedRoles && user?.role && !allowedRoles.includes(user.role)) {
     return null;
   }
 
