@@ -1,8 +1,10 @@
 import ExploreByCategory from "@/components/home/ExploreByCategory";
 import HeroSlider from "@/components/home/HeroSlider";
 import HowItWorks from "@/components/home/HowItWorks";
+import ImpactStats from "@/components/home/ImpactStats";
 import Testimonials from "@/components/home/Testimonials";
 import TopFundedCampaigns from "@/components/home/TopFundedCampaigns";
+
 
 
 export default function Home() {
@@ -12,6 +14,7 @@ export default function Home() {
        <TopFundedCampaigns />
         <HowItWorks />
          <ExploreByCategory />
+          <ImpactStats />
       <Testimonials />
     </>
   );
