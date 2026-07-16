@@ -56,11 +56,7 @@ export const dashboardNav: Record<UserRole, NavItem[]> = {
       href: "/dashboard/supporter-home/approved",
       icon: CheckCircle,
     },
-    {
-      label: "Explore Campaigns",
-      href: "/dashboard/supporter-home/explore",
-      icon: Compass,
-    },
+    { label: "Explore Campaigns", href: "/explore-campaigns", icon: Compass },
     {
       label: "My Contributions",
       href: "/dashboard/supporter-home/my-contributions",
