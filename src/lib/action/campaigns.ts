@@ -26,3 +26,18 @@ export async function deleteCampaign(id: string) {
   const res = await axiosInstance.delete(`/campaigns/${id}`);
   return res.data;
 }
+
+export async function approveCampaign(id: string) {
+  const res = await axiosInstance.patch(`/campaigns/${id}/approve`);
+  return res.data;
+}
+
+export async function rejectCampaign(id: string) {
+  const res = await axiosInstance.patch(`/campaigns/${id}/reject`);
+  return res.data;
+}
+
+export async function adminDeleteCampaign(id: string) {
+  const res = await axiosInstance.delete(`/campaigns/${id}/admin`);
+  return res.data;
+}

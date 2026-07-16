@@ -5,7 +5,12 @@ export interface CreatorStats {
   totalCampaigns: number;
   activeCampaigns: number;
   totalRaised: number;
-  campaignBreakdown: { name: string; raised: number; goal: number; percent: number }[];
+  campaignBreakdown: {
+    name: string;
+    raised: number;
+    goal: number;
+    percent: number;
+  }[];
 }
 
 export async function getTopFundedCampaigns(): Promise<Campaign[]> {
@@ -59,5 +64,14 @@ export async function getMyCampaigns(email: string): Promise<Campaign[]> {
 }
 export async function getCreatorStats(email: string): Promise<CreatorStats> {
   const res = await axiosInstance.get(`/campaigns/stats?email=${email}`);
+  return res.data;
+}
+export async function getPendingCampaigns(): Promise<Campaign[]> {
+  const res = await axiosInstance.get("/campaigns/pending");
+  return res.data;
+}
+
+export async function getAllCampaignsForAdmin(): Promise<Campaign[]> {
+  const res = await axiosInstance.get("/campaigns/admin-all");
   return res.data;
 }
