@@ -10,3 +10,7 @@ export async function createWithdrawal(payload: CreateWithdrawalPayload) {
   const res = await axiosInstance.post("/withdrawals", payload);
   return res.data;
 }
+export async function approveWithdrawal(id: string) {
+  const res = await axiosInstance.patch(`/withdrawals/${id}/approve`);
+  return res.data;
+}

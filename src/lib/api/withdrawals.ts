@@ -18,3 +18,8 @@ export async function getWithdrawalsForCreator(
   const res = await axiosInstance.get(`/withdrawals?email=${email}`);
   return res.data;
 }
+
+export async function getPendingWithdrawals(): Promise<Withdrawal[]> {
+  const res = await axiosInstance.get("/withdrawals/pending");
+  return res.data;
+}
