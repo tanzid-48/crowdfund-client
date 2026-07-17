@@ -12,4 +12,22 @@ axiosInstance.interceptors.request.use((config) => {
   return config;
 });
 
+//  response interceptor
+axiosInstance.interceptors.response.use(
+  (response) => response,
+  (error) => {
+    if (error.response?.status === 401) {
+      // token invalid/expired — localStorage clear
+      localStorage.removeItem("access-token");
+      if (
+        typeof window !== "undefined" &&
+        !window.location.pathname.includes("/login")
+      ) {
+        window.location.href = "/login";
+      }
+    }
+    return Promise.reject(error);
+  },
+);
+
 export default axiosInstance;
