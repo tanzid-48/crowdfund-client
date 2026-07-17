@@ -90,7 +90,8 @@ export default function ContributionReviewTable() {
 
   return (
     <>
-      <div className="mt-6 overflow-x-auto rounded-xl border border-border">
+      {/* Desktop Table View */}
+      <div className="mt-6 hidden overflow-x-auto rounded-xl border border-border md:block">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-border bg-secondary/40 text-left text-xs uppercase text-muted-foreground">
@@ -153,6 +154,64 @@ export default function ContributionReviewTable() {
         </table>
       </div>
 
+      {/* Mobile Card View */}
+      <div className="mt-6 space-y-3 md:hidden">
+        {contributions.map((c) => (
+          <div
+            key={c._id}
+            className="rounded-xl border border-border bg-card p-4"
+          >
+            <div className="flex items-start justify-between gap-2">
+              <div>
+                <p className="font-medium text-foreground">
+                  {c.supporter_name}
+                </p>
+                <p className="mt-0.5 text-xs text-muted-foreground">
+                  {c.campaign_title}
+                </p>
+              </div>
+              <button
+                onClick={() => setViewing(c)}
+                className="shrink-0 rounded-md p-1.5 text-muted-foreground hover:bg-accent"
+              >
+                <Eye size={16} />
+              </button>
+            </div>
+
+            <div className="mt-3 flex items-center justify-between text-xs">
+              <span className="font-mono font-semibold text-primary">
+                {c.contribution_amount} credits
+              </span>
+              <span className="text-muted-foreground">
+                {new Date(c.current_date).toLocaleDateString()}
+              </span>
+            </div>
+
+            <div className="mt-3 flex gap-2">
+              <Button
+                size="sm"
+                variant="outline"
+                className="flex-1 gap-1 text-primary hover:text-primary"
+                disabled={processingId === c._id}
+                onClick={() => handleApprove(c._id as string)}
+              >
+                <Check size={14} />
+                Approve
+              </Button>
+              <Button
+                size="sm"
+                variant="outline"
+                className="flex-1 gap-1 text-destructive hover:text-destructive"
+                disabled={processingId === c._id}
+                onClick={() => handleReject(c._id as string)}
+              >
+                <X size={14} />
+                Reject
+              </Button>
+            </div>
+          </div>
+        ))}
+      </div>
       <Dialog open={!!viewing} onOpenChange={(v) => !v && setViewing(null)}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>

@@ -135,7 +135,7 @@ export default function AddCampaignForm() {
           <Label htmlFor="category">Category</Label>
           <select
             id="category"
-            className="w-full rounded-md border border-input bg-transparent px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
+            className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm text-foreground focus:outline-none focus:ring-1 focus:ring-ring"
             {...register("category")}
           >
             <option value="">Select category</option>
