@@ -10,3 +10,8 @@ export async function deleteUser(id: string) {
   const res = await axiosInstance.delete(`/users/${id}`);
   return res.data;
 }
+
+export async function updateOwnProfile(payload: { name: string; image?: string }) {
+  const res = await axiosInstance.patch("/users/profile", payload);
+  return res.data;
+}
