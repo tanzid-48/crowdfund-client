@@ -36,6 +36,7 @@ export default function PaymentHistoryPage() {
       </p>
 
       {withdrawals.length === 0 ? (
+        // ...আগের empty state অপরিবর্তিত...
         <div className="mt-10 flex flex-col items-center justify-center gap-4 rounded-2xl border border-dashed border-border py-20 text-center">
           <div className="flex h-14 w-14 items-center justify-center rounded-full bg-secondary">
             <Receipt className="text-muted-foreground" size={24} />
@@ -48,51 +49,84 @@ export default function PaymentHistoryPage() {
           </div>
         </div>
       ) : (
-        <div className="mt-6 overflow-x-auto rounded-xl border border-border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-secondary/40 text-left text-xs uppercase text-muted-foreground">
-                <th className="px-4 py-3">Date</th>
-                <th className="px-4 py-3">Credits</th>
-                <th className="px-4 py-3">Amount</th>
-                <th className="px-4 py-3">Method</th>
-                <th className="px-4 py-3">Account</th>
-                <th className="px-4 py-3">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {withdrawals.map((w) => (
-                <tr
-                  key={w._id}
-                  className="border-b border-border last:border-0"
-                >
-                  <td className="px-4 py-3 text-xs text-muted-foreground">
-                    {new Date(w.withdraw_date).toLocaleDateString()}
-                  </td>
-                  <td className="px-4 py-3 font-mono text-foreground">
-                    {w.withdrawal_credit}
-                  </td>
-                  <td className="px-4 py-3 font-mono text-foreground">
-                    ${w.withdrawal_amount.toFixed(2)}
-                  </td>
-                  <td className="px-4 py-3 capitalize text-muted-foreground">
-                    {w.payment_system}
-                  </td>
-                  <td className="px-4 py-3 text-muted-foreground">
-                    {w.account_number}
-                  </td>
-                  <td className="px-4 py-3">
-                    <span
-                      className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${statusStyles[w.status]}`}
-                    >
-                      {w.status}
-                    </span>
-                  </td>
+        <>
+          {/* Desktop Table */}
+          <div className="mt-6 hidden overflow-x-auto rounded-xl border border-border md:block">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border bg-secondary/40 text-left text-xs uppercase text-muted-foreground">
+                  <th className="px-4 py-3">Date</th>
+                  <th className="px-4 py-3">Credits</th>
+                  <th className="px-4 py-3">Amount</th>
+                  <th className="px-4 py-3">Method</th>
+                  <th className="px-4 py-3">Account</th>
+                  <th className="px-4 py-3">Status</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {withdrawals.map((w) => (
+                  <tr
+                    key={w._id}
+                    className="border-b border-border last:border-0"
+                  >
+                    <td className="px-4 py-3 text-xs text-muted-foreground">
+                      {new Date(w.withdraw_date).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 font-mono text-foreground">
+                      {w.withdrawal_credit}
+                    </td>
+                    <td className="px-4 py-3 font-mono text-foreground">
+                      ${w.withdrawal_amount.toFixed(2)}
+                    </td>
+                    <td className="px-4 py-3 capitalize text-muted-foreground">
+                      {w.payment_system}
+                    </td>
+                    <td className="px-4 py-3 text-muted-foreground">
+                      {w.account_number}
+                    </td>
+                    <td className="px-4 py-3">
+                      <span
+                        className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${statusStyles[w.status]}`}
+                      >
+                        {w.status}
+                      </span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Cards */}
+          <div className="mt-6 space-y-3 md:hidden">
+            {withdrawals.map((w) => (
+              <div
+                key={w._id}
+                className="rounded-xl border border-border bg-card p-4"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-lg font-bold text-foreground">
+                    {w.withdrawal_credit} credits
+                  </span>
+                  <span
+                    className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${statusStyles[w.status]}`}
+                  >
+                    {w.status}
+                  </span>
+                </div>
+                <p className="mt-1 font-mono text-sm text-primary">
+                  ${w.withdrawal_amount.toFixed(2)}
+                </p>
+                <div className="mt-3 flex items-center justify-between text-xs text-muted-foreground">
+                  <span className="capitalize">
+                    {w.payment_system} · {w.account_number}
+                  </span>
+                  <span>{new Date(w.withdraw_date).toLocaleDateString()}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );

@@ -43,39 +43,67 @@ export default function SupporterPaymentHistoryPage() {
           </div>
         </div>
       ) : (
-        <div className="mt-6 overflow-x-auto rounded-xl border border-border">
-          <table className="w-full text-sm">
-            <thead>
-              <tr className="border-b border-border bg-secondary/40 text-left text-xs uppercase text-muted-foreground">
-                <th className="px-4 py-3">Date</th>
-                <th className="px-4 py-3">Amount</th>
-                <th className="px-4 py-3">Credits</th>
-                <th className="px-4 py-3">Transaction ID</th>
-              </tr>
-            </thead>
-            <tbody>
-              {payments.map((p) => (
-                <tr
-                  key={p._id}
-                  className="border-b border-border last:border-0"
-                >
-                  <td className="px-4 py-3 text-xs text-muted-foreground">
-                    {new Date(p.date).toLocaleDateString()}
-                  </td>
-                  <td className="px-4 py-3 font-mono text-foreground">
-                    ${p.amount}
-                  </td>
-                  <td className="px-4 py-3 font-mono text-primary">
-                    {p.credits} credits
-                  </td>
-                  <td className="px-4 py-3 truncate text-xs text-muted-foreground max-w-[160px]">
-                    {p.transactionId}
-                  </td>
+        <>
+          {/* Desktop Table */}
+          <div className="mt-6 hidden overflow-x-auto rounded-xl border border-border md:block">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border bg-secondary/40 text-left text-xs uppercase text-muted-foreground">
+                  <th className="px-4 py-3">Date</th>
+                  <th className="px-4 py-3">Amount</th>
+                  <th className="px-4 py-3">Credits</th>
+                  <th className="px-4 py-3">Transaction ID</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
+              </thead>
+              <tbody>
+                {payments.map((p) => (
+                  <tr
+                    key={p._id}
+                    className="border-b border-border last:border-0"
+                  >
+                    <td className="px-4 py-3 text-xs text-muted-foreground">
+                      {new Date(p.date).toLocaleDateString()}
+                    </td>
+                    <td className="px-4 py-3 font-mono text-foreground">
+                      ${p.amount}
+                    </td>
+                    <td className="px-4 py-3 font-mono text-primary">
+                      {p.credits} credits
+                    </td>
+                    <td className="px-4 py-3 truncate text-xs text-muted-foreground max-w-[160px]">
+                      {p.transactionId}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile Cards */}
+          <div className="mt-6 space-y-3 md:hidden">
+            {payments.map((p) => (
+              <div
+                key={p._id}
+                className="rounded-xl border border-border bg-card p-4"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-mono text-lg font-bold text-foreground">
+                    ${p.amount}
+                  </span>
+                  <span className="font-mono text-sm text-primary">
+                    {p.credits} credits
+                  </span>
+                </div>
+                <p className="mt-2 truncate text-xs text-muted-foreground">
+                  {p.transactionId}
+                </p>
+                <p className="mt-1 text-xs text-muted-foreground">
+                  {new Date(p.date).toLocaleDateString()}
+                </p>
+              </div>
+            ))}
+          </div>
+        </>
       )}
     </div>
   );
