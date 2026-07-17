@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { Menu, X, Bell, User, LayoutDashboard, LogOut } from "lucide-react";
+import { Menu, X,User, LayoutDashboard, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import ThemeToggle from "./ThemeToggle";
+import NotificationBell from "./NotificationBell";
 
 export default function Navbar() {
   const { user, isAuthenticated, loading } = useAuth();
@@ -78,9 +79,7 @@ export default function Navbar() {
                 {user?.credits ?? 0} credits
               </div>
 
-              <button className="relative text-muted-foreground hover:text-foreground">
-                <Bell size={20} />
-              </button>
+              <NotificationBell />
               <DropdownMenu>
                 <DropdownMenuTrigger className="outline-none">
                   <Avatar className="h-9 w-9 cursor-pointer border border-border">

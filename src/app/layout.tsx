@@ -5,6 +5,7 @@ import Navbar from "@/components/shared/Navbar";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/shared/ThemeProvider";
 import Footer from "@/components/shared/Footer";
+import QueryProvider from "@/components/shared/QueryProvider";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -36,12 +37,14 @@ export default function RootLayout({
       className={`${inter.variable} ${sora.variable} ${jetbrainsMono.variable}`}
     >
       <body className="antialiased flex min-h-screen flex-col">
-        <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
-          <Navbar />
-          <main className="flex-1">{children}</main>
-          <Footer />
-          <Toaster richColors position="top-center" />
-        </ThemeProvider>
+        <QueryProvider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <Navbar />
+      <main className="flex-1">{children}</main>
+      <Footer />
+      <Toaster richColors position="top-center" />
+    </ThemeProvider>
+  </QueryProvider>
       </body>
     </html>
   );
