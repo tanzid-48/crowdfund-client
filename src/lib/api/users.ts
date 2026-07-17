@@ -6,6 +6,8 @@ export interface AdminStats {
   totalCreators: number;
   totalCredits: number;
   totalPaymentsProcessed: number;
+  campaignStatusBreakdown: { name: string; value: number }[];
+  userRoleBreakdown: { name: string; value: number }[];
 }
 
 export async function getAdminStats(): Promise<AdminStats> {

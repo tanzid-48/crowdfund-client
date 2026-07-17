@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import { getAdminStats, type AdminStats } from "@/lib/api/users";
 import StatsCard from "@/components/dashboard/StatsCard";
+import AdminAnalytics from "@/components/dashboard/admin/AdminAnalytics";
 import Loading from "@/components/shared/Loading";
 import { Users, Rocket, Coins, Receipt } from "lucide-react";
 
@@ -53,6 +54,11 @@ export default function AdminHomePage() {
           accent="success"
         />
       </div>
+
+      <AdminAnalytics
+        campaignStatusBreakdown={stats?.campaignStatusBreakdown ?? []}
+        userRoleBreakdown={stats?.userRoleBreakdown ?? []}
+      />
     </div>
   );
 }
