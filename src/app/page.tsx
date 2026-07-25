@@ -1,3 +1,4 @@
+import CTABanner from "@/components/home/CTABanner";
 import ExploreByCategory from "@/components/home/ExploreByCategory";
 import FAQ from "@/components/home/FAQ";
 import HeroSlider from "@/components/home/HeroSlider";
@@ -16,6 +17,7 @@ export default function Home() {
       <ImpactStats />
       <Testimonials />
       <FAQ />
+       <CTABanner />
     </>
   );
 }
