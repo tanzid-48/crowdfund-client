@@ -31,7 +31,10 @@ export default function Navbar() {
     router.push("/login");
   };
 
-  const navLinks = [{ href: "/explore-campaigns", label: "Explore Campaigns" }];
+  const navLinks = [
+    { href: "/", label: "Home" }, 
+    { href: "/explore-campaigns", label: "Explore Campaigns" }
+  ];
 
   const isActive = (href: string) => pathname === href;
 
