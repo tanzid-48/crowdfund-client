@@ -5,6 +5,12 @@ import { useAuth } from "@/hooks/useAuth";
 import { getMyContributionsPaginated } from "@/lib/api/contributions";
 import Loading from "@/components/shared/Loading";
 import { Button } from "@/components/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 import { FileText, ChevronLeft, ChevronRight, Eye } from "lucide-react";
 import type { Contribution } from "@/types";
 
@@ -151,8 +157,84 @@ export default function MyContributionsPage() {
               </div>
             ))}
           </div>
+
+          {/* Pagination */}
+          {totalPages > 1 && (
+            <div className="mt-4 flex items-center justify-between">
+              <p className="text-xs text-muted-foreground">
+                Page {page} of {totalPages}
+              </p>
+              <div className="flex gap-2">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page === 1}
+                  onClick={() => setPage((p) => p - 1)}
+                  className="gap-1"
+                >
+                  <ChevronLeft size={14} />
+                  Previous
+                </Button>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  disabled={page === totalPages}
+                  onClick={() => setPage((p) => p + 1)}
+                  className="gap-1"
+                >
+                  Next
+                  <ChevronRight size={14} />
+                </Button>
+              </div>
+            </div>
+          )}
         </>
       )}
+
+      {/* Details Modal */}
+      <Dialog open={!!viewing} onOpenChange={(v) => !v && setViewing(null)}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Contribution Details</DialogTitle>
+          </DialogHeader>
+          {viewing && (
+            <div className="space-y-3 text-sm">
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Campaign</span>
+                <span className="font-medium text-foreground">
+                  {viewing.campaign_title}
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Creator</span>
+                <span className="text-foreground">{viewing.creator_name}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Amount</span>
+                <span className="font-mono text-primary">
+                  {viewing.contribution_amount} credits
+                </span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-muted-foreground">Status</span>
+                <span
+                  className={`rounded-full px-2 py-0.5 text-xs font-medium capitalize ${statusStyles[viewing.status]}`}
+                >
+                  {viewing.status}
+                </span>
+              </div>
+              {viewing.message && (
+                <div>
+                  <span className="text-muted-foreground">Your message</span>
+                  <p className="mt-1 rounded-md bg-secondary/40 p-3 text-foreground">
+                    {viewing.message}
+                  </p>
+                </div>
+              )}
+            </div>
+          )}
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
