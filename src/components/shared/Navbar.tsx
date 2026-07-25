@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
-import { Menu, X,User, LayoutDashboard, LogOut } from "lucide-react";
+import { Menu, X, User, LayoutDashboard, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { authClient } from "@/lib/auth-client";
 import { Button } from "@/components/ui/button";
@@ -32,8 +32,8 @@ export default function Navbar() {
   };
 
   const navLinks = [
-    { href: "/", label: "Home" }, 
-    { href: "/explore-campaigns", label: "Explore Campaigns" }
+    { href: "/", label: "Home" },
+    { href: "/explore-campaigns", label: "Explore Campaigns" },
   ];
 
   const isActive = (href: string) => pathname === href;
@@ -78,9 +78,18 @@ export default function Navbar() {
 
           {!loading && isAuthenticated && (
             <>
-              <div className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
-                {user?.credits ?? 0} credits
-              </div>
+              {user?.role === "supporter" ? (
+                <Link
+                  href="/dashboard/supporter-home/purchase-credit"
+                  className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground transition-colors hover:bg-accent"
+                >
+                  {user?.credits ?? 0} credits
+                </Link>
+              ) : (
+                <div className="rounded-full bg-secondary px-3 py-1 text-xs font-medium text-secondary-foreground">
+                  {user?.credits ?? 0} credits
+                </div>
+              )}
 
               <NotificationBell />
               <DropdownMenu>
@@ -154,6 +163,7 @@ export default function Navbar() {
           {mobileOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
+
       {mobileOpen && (
         <nav className="flex flex-col gap-3 border-t border-border bg-background px-4 py-4 md:hidden">
           {navLinks.map((link) => (
@@ -192,9 +202,19 @@ export default function Navbar() {
 
           {!loading && isAuthenticated && (
             <>
-              <span className="text-sm text-muted-foreground">
-                {user?.credits ?? 0} credits
-              </span>
+              {user?.role === "supporter" ? (
+                <Link
+                  href="/dashboard/supporter-home/purchase-credit"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-sm text-primary hover:underline"
+                >
+                  {user?.credits ?? 0} credits — Buy more
+                </Link>
+              ) : (
+                <span className="text-sm text-muted-foreground">
+                  {user?.credits ?? 0} credits
+                </span>
+              )}
               <Link
                 href="/dashboard"
                 onClick={() => setMobileOpen(false)}

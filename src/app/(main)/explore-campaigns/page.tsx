@@ -1,7 +1,8 @@
 import Link from "next/link";
 import Image from "next/image";
-import { Search } from "lucide-react";
+import { Clock, Search } from "lucide-react";
 import { getAllApprovedCampaigns } from "@/lib/api/campaigns";
+import { daysLeft } from "@/lib/utils/campaignHelpers";
 
 function fundedPercent(raised: number, goal: number) {
   if (!goal) return 0;
@@ -65,6 +66,10 @@ export default async function ExploreCampaignsPage({
                   />
                   <span className="absolute left-3 top-3 rounded-full bg-black/60 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
                     {campaign.category}
+                  </span>
+                  <span className="absolute right-3 top-3 flex items-center gap-1 rounded-full bg-black/60 px-2.5 py-1 text-xs font-medium text-white backdrop-blur-sm">
+                    <Clock size={12} />
+                    {daysLeft(campaign.deadline)}d left
                   </span>
                 </div>
 
