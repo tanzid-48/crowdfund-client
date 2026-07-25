@@ -1,4 +1,5 @@
 import ExploreByCategory from "@/components/home/ExploreByCategory";
+import FAQ from "@/components/home/FAQ";
 import HeroSlider from "@/components/home/HeroSlider";
 import HowItWorks from "@/components/home/HowItWorks";
 import ImpactStats from "@/components/home/ImpactStats";
@@ -14,6 +15,7 @@ export default function Home() {
       <ExploreByCategory />
       <ImpactStats />
       <Testimonials />
+      <FAQ />
     </>
   );
 }
