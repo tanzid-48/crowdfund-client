@@ -60,7 +60,6 @@ export default function RegisterForm() {
       password: values.password,
       name: values.name,
       image: values.photoURL,
-      // @ts-expect-error -- additionalField, not in base type
       role: values.role,
     });
 
